@@ -118,9 +118,22 @@ colnames(data) <- c("Volatilita","Výnos")
             #optimal_allocation_table th, td{
                      width: 16%;
             }
-              #selected_financial_indicators_table th,#selected_financial_indicators_table td{
-                    width:14%;
-              }
+            
+            
+            #selected_financial_indicators_table table{
+                     width: 100% !important;
+            }
+            #selected_financial_indicators_table th, td{
+                     width: 16%;
+            }
+            #optimal_portfolio_indicators_table table{
+                     width: 100% !important;
+            }
+            #optimal_portfolio_indicators_table th, td{
+                     width: 16%;
+            }
+            
+            
 
             .reset_data_btn{
                 color: #fff;
@@ -134,7 +147,8 @@ colnames(data) <- c("Volatilita","Výnos")
                   
     useShinyjs(),             
     navbarPage(
-      "pmpt.online",
+      # "pmpt.online",
+      img(src='https://simonpodstavek.studenthosting.sk/pmpt/logo.png', height=25),
       tabPanel("Optimalizácia portfólia",
                sidebarPanel(
                  
@@ -187,14 +201,55 @@ colnames(data) <- c("Volatilita","Výnos")
                             div(id="dcml_slope", ""),
                             h5("Efektívna hranica ako výsledok simulácie:"),
                             plotOutput("efficient_frontier_plot"),
-                            uiOutput("Console")
+                            uiOutput("Legal")
 
                )))
                
       ), # Navbar 1, tabPanel
-      tabPanel("Manuál", "This panel is intentionally left blank"),
-      tabPanel("O pmpt.online", "This panel is intentionally left blank"),
-      tabPanel("Autor", "This panel is intentionally left blank"),
+      tabPanel("Manuál",
+      h1("Ako používať pmpt.online"),      
+      h5("pmpt.online je nástroj, ktorý môže investorovi asistovať pri optimalizácií portfólia (viz. záložka O pmpt.online)"),  
+      h5("Je rozdelený na dve hlavné sekcie: Vstupné parametre a výstup"),  
+      
+      ),
+      tabPanel("O pmpt.online",
+      
+      h1("O pmpt.online"),
+      h5("pmpt.online je nástroj, ktorý môže investorovi asistovať pri optimalizácií portfólia"),  
+      h5("Nástroj vychádza z myšlenok post modernej teórie portfólia (PMPT)"),
+      h5("Znaží sa teda vybrať takú skupinu aktív, v ktorej minimalizuje spodnú volatilitu (viz. Slovník pojmov)"),  
+      h5("pmpt.online je vytvorené v jazyku R a využíva algoritmus L-BFGS-B (Limited-memory BFGS)."), 
+      h5("Podobne ako mnoho optimalizačných algoritmov, L-BFGS je navrhnutý tak, aby hľadal lokálne minima funkcie. Avšak nezaručuje nájdenie globálneho minima."),
+      h5("V skutočnosti môže L-BFGS konvergovať ku lokálnemu minimu, ktoré nie je globálnym minimom."),
+      h5("Pre používateľa to teda znamená, že nájdená alokácia nemusí byť najoptimálnešia"),
+      h5("Ak sa o nástroji chcete dozvedieť viac, môžete navštíviť: http://github.pmpt.online/"),
+      
+      
+      h1("Slovník pojmov"),
+      h5(strong("Benchmark - "),"Referenčná hodnota, zväča trhový index."),
+      h5(strong("Beta koeficient - "),"Vyjadruje silu závislosti aktíva od benchmarku"),
+      h5(strong("Bezriziková sadzba - "),"Agregovaný minimálny výnos, ktorý sú trhoví aktéri ochotní prijať na bezrizikovom aktívu. Bezriziková sadzba, je závislá na mene, v ktorej aktívum oceňujeme"),
+      h5(strong("CAPM výnos - "),"Očakávaný výnos, vychádza z minulého výnosu referencie (benchmarku) a zohľadňuje beta koeficient, teda silu kolísania aktíva voči indexu"),
+      h5(strong("D-CAPM výnos - "),"Očakávaný výnos, vychádza z minulého výnosu referencie (benchmarku) a zohľadňuje riziko nedosiahnutia MAR."),
+      h5(strong("DCML - "),"Jedná ja o sklon Zobrazuje odmenu za riziko pre benchmark"),
+      h5(strong("Dolná variancia - "),"percentuálne (ako časť variancie) vyjadruje varianciu tej časti výnosov, ktoré sú nižšieako MAR."),
+      h5(strong("Historický ročný výnos (portfólia) - "),"Vážený priemer výnosov aktív. Výnosy aktív sú geometrickým priemerom výnosov za zvolené obdobie. "),
+      h5(strong("Horná variancia - "),"percentuálne (ako časť variancie) vyjadruje varianciu tej časti výnosov, ktoré sú vyžšie ako MAR."),
+      h5(strong("MAR - "),"Minimálny akceptovateľný výnos investora."),
+      h5(strong("Očakávaný ročný výnos - "),"Očakávaný výnos na základe upraveného modelu CAPM. Vychádza z minulého výnosu referencie (benchmarku) a zohľadňuje riziko nedosiahnutia MAR."),
+      h5(strong("Priemerný ročný výnos - ")," Geometrický prieme výnosov za zvolené obdobie."),
+      h5(strong("Sortino - "),"Finančný ukazovateľ, zobrazujúci výnos, ktorý invesotr prijíme za spodné riziko."),
+      h5(strong("Spodná volatilita - "),"Tá časť volatility, ktorá pochádza z výnosu nižšieho ako MAR."),
+      h5(strong("Spodý beta koeficient - "),"Vyjadruje silu závislosti aktíva od benchmarku pre tie dni, kedy benchmark ukončí deň stratou."),
+      h5(strong("Variancia - "),"Variancia historických výnosov."),
+      h5(strong("Volatilita - "),"Smerodajná odchýlka historických výnosov."),
+      h5(strong("Zošikmenie variancie - "),"Opisuje zloženie variancie, resp. pomer hornej a dolnej variancie."),
+      h5(strong("UPOZORNENIE: "),"Investovanie a obchodovanie na burze sú rizikové. Predchádzajúca výkonnosť investícií sa môže zásadne odlišovať od tej budúcej. Na tejto stránke neuvádzame žiadne investičné odporúčania, žiadne investičné poradenstvo a prezentujeme iba vlastnú interpretáciu trhových modelov. Stránka slúži len na vzdelávacie účely. Pred akoukoľvek investíciou si odporúčame urobiť vlastný due diligence. Analýzov historických dát nepreberáme žiadnu zodpovednosť za investície návštevníka.")
+      ),
+      tabPanel("Autor", 
+      h1("Šimon Podstavek"),
+      h5("Autorom pmpt.online je Šimon Podstavek"),
+               ),
   
     ) # navbarPage
   ) # fluidPage
@@ -202,6 +257,11 @@ colnames(data) <- c("Volatilita","Výnos")
   
   # Define server function  
   server <- function(input, output, session) {
+    
+    output$Legal <- renderUI({
+      h6(strong("UPOZORNENIE: "),"Investovanie a obchodovanie na burze sú rizikové. Predchádzajúca výkonnosť investícií sa môže zásadne odlišovať od tej budúcej. Na tejto stránke neuvádzame žiadne investičné odporúčania, žiadne investičné poradenstvo a prezentujeme iba vlastnú interpretáciu trhových modelov. Stránka slúži len na vzdelávacie účely. Pred akoukoľvek investíciou si odporúčame urobiť vlastný due diligence. Analýzov historických dát nepreberáme žiadnu zodpovednosť za investície návštevníka.")
+    }) 
+    
     observeEvent(input$button, {
       toggle("hello")
     })
