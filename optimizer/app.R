@@ -173,7 +173,7 @@ colnames(data) <- c("Volatilita","Výnos")
                  
                  br(),
                  tags$h5("Nastavenia optimalizácie:"),
-                 sliderInput("monte_carlo_slider", label = "Počet simulácií", min = 10, 
+                 sliderInput("max_iter_slider", label = "Počet simulácií", min = 10, 
                              max = 500, value = 200),
                  sliderInput("assets_slider", label = "Počet aktív", min = 2, 
                              max = 7, value = 2),
@@ -209,7 +209,20 @@ colnames(data) <- c("Volatilita","Výnos")
       tabPanel("Manuál",
       h1("Ako používať pmpt.online"),      
       h5("pmpt.online je nástroj, ktorý môže investorovi asistovať pri optimalizácií portfólia (viz. záložka O pmpt.online)"),  
-      h5("Je rozdelený na dve hlavné sekcie: Vstupné parametre a výstup"),  
+      h5("Je rozdelený na dve hlavné sekcie: Vstupné parametre a výstup"),
+      h5("Pri optimalizácií portfólia postupujte nasledovne: "),
+      h5(strong("1. Zvoľte  časové rozpätie čerpaných historických dát v sekcií Historický rozsah dát. Uistiťe sa, že zvolené CP boli verejne obchodované počas celého rozsahu dát")),  
+      h5(strong("2. Nastavte berzizikovú sadzbu a minimálny akceptovateľný výnos. Obe tieto hodnoty uvádzajte v USD, resp. mene cenných papierov")),
+      h5(strong("3. Nastavte veľkosť zamýšlaného portfólia")),
+      h5(strong("4. Nastvte maximálny počet simulácií pre optimalizačnú funkciu. Za predpokladu, že nenájde konvergujúce hodnoty, vráti vyvážené portfólio")),
+      h5(strong("5. Zvoľte si počet cenných papierov, pre ktoré budete portfólio optimalizovať.")),
+      h5(strong("6. Zvoľte si benchmark (referenčnú hodnotu) s ku ktorej bude počas optimalizácie portfólio prirovanávané. ")),
+      h5(strong("7. Zadajte symobly pre cenné papiere. Symboly pre cenné papiere si môžete vyhľadať na adrese: https://finance.yahoo.com/. Odporúčame, zvoliť si všetky CP v rovnakej mene, v opačnmo prípade môže dôjsť k skresleniu výnosov.")),
+      h5(strong("8. Stlačte tlačidlo Stiahni Dáta.")),
+      h5(strong("Po stiahnutí dát je možné zmeniť bezrizikovú sadzbu, minimálny výnos, veľkosť portfólia alebo počet simulácií bez potreby stiahnutia dát nanovo.")),
+      h5(strong("UPOZORNENIE: "),"Investovanie a obchodovanie na burze sú rizikové. Predchádzajúca výkonnosť investícií sa môže zásadne odlišovať od tej budúcej. Na tejto stránke neuvádzame žiadne investičné odporúčania, žiadne investičné poradenstvo a prezentujeme iba vlastnú interpretáciu trhových modelov. Stránka slúži len na vzdelávacie účely. Pred akoukoľvek investíciou si odporúčame urobiť vlastný due diligence. Analýzov historických dát nepreberáme žiadnu zodpovednosť za investície návštevníka.")
+      
+      
       
       ),
       tabPanel("O pmpt.online",
@@ -225,6 +238,7 @@ colnames(data) <- c("Volatilita","Výnos")
       h5("Ak sa o nástroji chcete dozvedieť viac, môžete navštíviť: http://github.pmpt.online/"),
       
       
+      
       h1("Slovník pojmov"),
       h5(strong("Benchmark - "),"Referenčná hodnota, zväča trhový index."),
       h5(strong("Beta koeficient - "),"Vyjadruje silu závislosti aktíva od benchmarku"),
@@ -235,7 +249,7 @@ colnames(data) <- c("Volatilita","Výnos")
       h5(strong("Dolná variancia - "),"percentuálne (ako časť variancie) vyjadruje varianciu tej časti výnosov, ktoré sú nižšieako MAR."),
       h5(strong("Historický ročný výnos (portfólia) - "),"Vážený priemer výnosov aktív. Výnosy aktív sú geometrickým priemerom výnosov za zvolené obdobie. "),
       h5(strong("Horná variancia - "),"percentuálne (ako časť variancie) vyjadruje varianciu tej časti výnosov, ktoré sú vyžšie ako MAR."),
-      h5(strong("MAR - "),"Minimálny akceptovateľný výnos investora."),
+      h5(strong("MAR - "),"Minimálny akceptovateľný výnos investora. Jedná sa o referenčnú hodnotu výnosu. Časť rozptylu výnosov optimálneho portfólia pod touto hranicou je riziko, časť nad ňou je neistota ohľadom budúceho zisku"),
       h5(strong("Očakávaný ročný výnos - "),"Očakávaný výnos na základe upraveného modelu CAPM. Vychádza z minulého výnosu referencie (benchmarku) a zohľadňuje riziko nedosiahnutia MAR."),
       h5(strong("Priemerný ročný výnos - ")," Geometrický prieme výnosov za zvolené obdobie."),
       h5(strong("Sortino - "),"Finančný ukazovateľ, zobrazujúci výnos, ktorý invesotr prijíme za spodné riziko."),
@@ -249,7 +263,10 @@ colnames(data) <- c("Volatilita","Výnos")
       tabPanel("Autor", 
       h1("Šimon Podstavek"),
       h5("Autorom pmpt.online je Šimon Podstavek"),
-               ),
+      h5(strong("UPOZORNENIE: "),"Investovanie a obchodovanie na burze sú rizikové. Predchádzajúca výkonnosť investícií sa môže zásadne odlišovať od tej budúcej. Na tejto stránke neuvádzame žiadne investičné odporúčania, žiadne investičné poradenstvo a prezentujeme iba vlastnú interpretáciu trhových modelov. Stránka slúži len na vzdelávacie účely. Pred akoukoľvek investíciou si odporúčame urobiť vlastný due diligence. Analýzov historických dát nepreberáme žiadnu zodpovednosť za investície návštevníka.")
+      
+      
+      ),
   
     ) # navbarPage
   ) # fluidPage
@@ -274,7 +291,8 @@ colnames(data) <- c("Volatilita","Výnos")
         names <- c(names, input[[input_name]])
       }
     }
-      toupper(names)
+      names<- toupper(names)
+      sort(names,method = "shell", index.return = FALSE)
   })
     
     benchmark_name <<- reactive({
@@ -327,7 +345,7 @@ colnames(data) <- c("Volatilita","Výnos")
     
     
     
-    #BUTTON PRESS PLot efficeintf rontier and download data
+    #BUTTON PRESS PLot efficient frontier and download data
     
     
     observeEvent(input$submit_optimization, {
@@ -366,7 +384,7 @@ colnames(data) <- c("Volatilita","Výnos")
 
       output$efficient_frontier_plot <- renderPlot({
         set.seed(sum(as.numeric(charToRaw(paste(asset_names(), collapse = "")))))
-        subset_data <- data[sample(nrow(data), input$monte_carlo_slider),]
+        subset_data <- data[sample(nrow(data), input$max_iter_slider),]
         req(input$submit_optimization)
         ggplot(subset_data, aes(Volatilita, Výnos)) +
           geom_point() +
@@ -384,6 +402,7 @@ colnames(data) <- c("Volatilita","Výnos")
       initial_weights <- rep(1/ncol(returns), ncol(returns))
       target_return <- input$MAR_input
       rfr <- input$RFR_input
+      max_iterations <- input$max_iter_slider
       
       
       # Set the initial weights
@@ -404,7 +423,8 @@ colnames(data) <- c("Volatilita","Výnos")
         rfr = rfr,
         method = "L-BFGS-B",
         lower = lower_bounds,
-        upper = upper_bounds
+        upper = upper_bounds,
+        control = c(maxit<- max_iterations)
       )
       
       optimal_weights <<- result$par
